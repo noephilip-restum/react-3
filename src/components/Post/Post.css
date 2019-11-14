@@ -1,8 +1,9 @@
 .Post__parent {
   width: 100%;
   min-height: 150px;
-  background-color: #FFF;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 0 2px 0 rgba(0, 0, 0, 0.14);
+  background-color: #fff;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.12),
+    0 0 2px 0 rgba(0, 0, 0, 0.14);
   border-radius: 5px;
   margin: 0 auto;
   margin-bottom: 20px;
@@ -24,10 +25,11 @@
   position: absolute;
   width: 100px;
   right: -105px;
-  background-color: #FFF;
+  background-color: #fff;
   flex-direction: column;
   padding: 10px 10px 0px 10px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 0 2px 0 rgba(0, 0, 0, 0.14);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.12),
+    0 0 2px 0 rgba(0, 0, 0, 0.14);
 }
 
 .Post__master-menu span {
@@ -88,6 +90,12 @@
 }
 
 .Post__control-icon {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.Post__control-icon-clicked {
+  color: red;
   margin-right: 10px;
   cursor: pointer;
 }

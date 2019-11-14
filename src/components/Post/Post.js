@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   MdPersonOutline,
   MdMoreVert,
   MdChatBubbleOutline,
   MdFavoriteBorder,
-  MdMailOutline,
-} from 'react-icons/md';
+  MdFavorite,
+  MdMailOutline
+} from "react-icons/md";
 
-import './Post.css';
+import "./Post.css";
 
-import Edit from './Edit/Edit';
+import Edit from "./Edit/Edit";
 
 ///////////// THIS COMPONENT IS BEING RENDERED IN THE *APP* COMPONENT
 
@@ -20,12 +21,18 @@ export default class Post extends Component {
     this.state = {
       editing: false,
       showMasterMenu: false,
+      isFavorite: false
     };
 
     this.hideEdit = this.hideEdit.bind(this);
     this.showEdit = this.showEdit.bind(this);
     this.toggleMasterMenu = this.toggleMasterMenu.bind(this);
     this.hideMasterMenu = this.hideMasterMenu.bind(this);
+    this.favorite = this.favorite.bind(this);
+  }
+
+  favorite(val) {
+    this.setState({ isFavorite: val });
   }
 
   // This puts the post into EDIT mode when the EDIT button is clicked from the drop-down
@@ -56,7 +63,7 @@ export default class Post extends Component {
     // const editing = this.state.editing
     // const showMasterMenu = this.state.showMasterMenu
     const { editing, showMasterMenu } = this.state;
-
+    const { text, date, id, updatePostFn, deletePostFn } = this.props;
     return (
       // Main body of post
       <section className="Post__parent" onClick={this.hideMasterMenu}>
@@ -67,10 +74,10 @@ export default class Post extends Component {
           {/* Drop-down menu. Remember that the "showMasterMenu" variable has been destructured off of this.state */}
           <div
             className="Post__master-menu"
-            style={{ display: showMasterMenu ? 'flex' : 'none' }}
+            style={{ display: showMasterMenu ? "flex" : "none" }}
           >
             <span onClick={this.showEdit}>Edit</span>
-            <span>Delete</span>
+            <span onClick={() => deletePostFn(id)}>Delete</span>
           </div>
         </div>
 
@@ -80,10 +87,9 @@ export default class Post extends Component {
             <MdPersonOutline />
           </div>
 
-          <span className="Post__name">DevMountain</span>
-          <span className="Post__handle">@DevMountain</span>
-
-          <span className="Post__date">- POST DATE GOES HERE</span>
+          <span className="Post__name">Boom.Camp</span>
+          <span className="Post__handle">@boom.camp</span>
+          <span className="Post__date">- {date}</span>
         </div>
 
         {/* This is where the text goes. Notice the turnary statement. The turnary statement decides to display either the text OR the editor view
@@ -97,16 +103,31 @@ export default class Post extends Component {
         <div className="Post__content">
           {// This has been pulled off of this.state via destructuring
           editing ? (
-            <Edit text="" hideEdit={this.hideEdit} />
+            <Edit
+              text={text}
+              id={id}
+              hideEdit={this.hideEdit}
+              updatePostFn={updatePostFn}
+            />
           ) : (
-            <span className="Post__text">POST TEXT GOES HERE</span>
+            <span className="Post__text">{text}</span>
           )}
         </div>
 
         {/* These are all of the cute little icons in the bottom left corner */}
         <div className="Post__user-controls">
           <MdChatBubbleOutline className="Post__control-icon" />
-          <MdFavoriteBorder className="Post__control-icon" />
+          {!this.state.isFavorite ? (
+            <MdFavoriteBorder
+              onClick={() => this.favorite(true)}
+              className="Post__control-icon"
+            />
+          ) : (
+            <MdFavorite
+              onClick={() => this.favorite(false)}
+              className="Post__control-icon-clicked"
+            />
+          )}
           <MdMailOutline className="Post__control-icon" />
         </div>
       </section>
